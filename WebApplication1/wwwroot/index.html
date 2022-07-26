@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="login">ログイン</button>
+    <button id="getUser">ユーザー情報取得</button>
+    <button id="logout">ログアウト</button>
+    <script>
+        window.onload = function() {
+            document.getElementById('login').onclick = function() {
+                login();
+            };
+            document.getElementById('getUser').onclick = function() {
+                getUser();
+            };
+            document.getElementById('logout').onclick = function() {
+                logout();
+            };
+        };
+
+        function login() {
+            let xhr = new XMLHttpRequest;
+            xhr.open('get', `/api/Account/Login?userId=abc`, true);
+            xhr.send();
+        }
+        function getUser() {
+            let xhr = new XMLHttpRequest;
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    alert(this.responseText);
+                }
+            };
+            xhr.open('get', "/api/Account/GetUser", true);
+            xhr.send();
+        }
+        function logout() {
+            let xhr = new XMLHttpRequest;
+            xhr.open('get', "/api/Account/Logout", true);
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
